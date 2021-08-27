@@ -5,6 +5,9 @@ import com.as.todo.util.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.data.domain.Page;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -19,6 +22,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@ToString
 @Table(uniqueConstraints = {
                 @UniqueConstraint(columnNames = "email")
         })
@@ -42,13 +46,8 @@ public class UserRegistration {
     @NotEmpty
     @Size(max=120)
     private String password;
-
-//    @OneToMany(fetch = FetchType.LAZY)
-//    @JoinTable(	name = "todo_item",
-//            joinColumns = @JoinColumn(name = "user_id"),
-//            inverseJoinColumns = @JoinColumn(name = "todo_item_id"))
-//    private List<TodoItem> todoItems = new ArrayList<>();
-
-    @OneToMany(mappedBy = "UserRegistration")
-    private List<TodoItem> todoItems = new ArrayList<>();
+    @OneToMany(targetEntity = TodoItem.class, fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
+    @JoinColumn(name = "todo_fk", referencedColumnName = "id")
+    private List<TodoItem> todoItems;
 }

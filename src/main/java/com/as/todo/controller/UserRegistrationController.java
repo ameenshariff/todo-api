@@ -8,6 +8,7 @@ import com.as.todo.security.jwt.JwtUtils;
 import com.as.todo.security.services.UserDetailsImpl;
 import com.as.todo.service.UserRegistrationService;
 import com.as.todo.util.Role;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +25,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@Slf4j
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("api/auth")
